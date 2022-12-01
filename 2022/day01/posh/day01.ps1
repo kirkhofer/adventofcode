@@ -2,12 +2,12 @@ $ErrorActionPreference="Stop"
 
 #Short version inspired by nicoleserafino (lol)
 Write-Host "Answer 1:" -NoNewline
-(((Get-Content "2022\day1\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Measure-Object -Max).Maximum
+(((Get-Content "..\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Measure-Object -Max).Maximum
 Write-Host "Answer 2:" -NoNewline
-(((Get-Content "2022\day1\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Sort-Object -desc|Select-Object -first 3|Measure-Object -Sum).Sum
+(((Get-Content "..\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Sort-Object -desc|Select-Object -first 3|Measure-Object -Sum).Sum
 
 #Long version
-$lines=(Get-Content "2022\day1\input.txt")
+$lines=(Get-Content "..\input.txt")
 
 $elves=@()
 
