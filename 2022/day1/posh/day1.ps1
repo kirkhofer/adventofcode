@@ -1,6 +1,13 @@
 $ErrorActionPreference="Stop"
 
-$lines=(Get-Content ../input.txt)
+#Short version inspired by nicoleserafino (lol)
+Write-Host "Answer 1:" -NoNewline
+(((Get-Content "2022\day1\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Measure-Object -Max).Maximum
+Write-Host "Answer 2:" -NoNewline
+(((Get-Content "2022\day1\input.txt" -raw).split("`n`n")|ForEach-Object{($_.split("`n")|measure-object -sum).sum})|Sort-Object -desc|Select-Object -first 3|Measure-Object -Sum).Sum
+
+#Long version
+$lines=(Get-Content "2022\day1\input.txt")
 
 $elves=@()
 
@@ -19,7 +26,9 @@ foreach($line in $lines)
 }
 
 #Answer for #1
-$elves|Measure-object -Sum -max
+Write-Host "Answer 1:" -NoNewline
+($elves|Measure-object -Sum -max).Maximum
 
 #Answer for #2
-($elves|Sort-Object -desc|select -First 3)|Measure-Object -Sum
+Write-Host "Answer 2:" -NoNewline
+(($elves|Sort-Object -desc|select -First 3)|Measure-Object -Sum).Sum
