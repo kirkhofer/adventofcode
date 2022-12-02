@@ -50,5 +50,6 @@ Get-Content "..\input.txt"|ForEach-Object{
 
     $totalScore+=($player1Val+$val);
 }
+#9975
 Write-Host "Answer 2:" -NoNewline
 $totalScore
