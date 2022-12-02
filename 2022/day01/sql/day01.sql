@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS dbo.Day01
+GO
+CREATE TABLE dbo.Day01(Score INT)
+GO
+BULK INSERT dbo.Day01
+FROM '/home/kirk/code/adventofcode/2022/day01/input.txt'
+WITH 
+(
+    FORMAT='CSV'
+    ,ROWTERMINATOR='\n'
+    ,BATCHSIZE=10000
+    ,TABLOCK
+    ,KEEPIDENTITY
+)
+GO
+ALTER TABLE dbo.Day01 ADD ID INT IDENTITY(1,1)
+ALTER TABLE dbo.Day01 ADD ElfID INT
+GO
+
+UPDATE Day01
+SET ElfID=x.ParentID
+FROM
+    Day01 d
+    JOIN 
+    (
+        SELECT *
+        FROM
+        (
+        SELECT d.ID,ISNULL(MIN(x.ID),0) AS ParentID FROM Day01 d LEFT OUTER JOIN (SELECT ID FROM Day01 WHERE Score IS NULL) x ON d.ID < x.ID GROUP BY d.ID
+        ) x
+    ) x ON d.ID = x.ID
+
+SELECT DISTINCT ElfID FROM dbo.Day01
+
+SELECT TOP 1 ElfID,SUM(Score) AS Answer1 FROM Day01 WHERE Score IS NOT NULL GROUP BY ElfID ORDER BY 2 DESC
+
+SELECT SUM(TotalScore) AS Answer2 FROM (SELECT TOP 3 ElfID,SUM(Score) AS TotalScore FROM Day01 WHERE Score IS NOT NULL GROUP BY ElfID ORDER BY 2 DESC) x
