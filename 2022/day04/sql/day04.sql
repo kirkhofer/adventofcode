@@ -63,7 +63,7 @@ WHERE
 GO
 SELECT 
     COUNT(DISTINCT ID) AS Answer1
-    ,526 AS Total
+    ,886 AS Total
 FROM Day04 
 WHERE
     (
