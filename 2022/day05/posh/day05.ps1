@@ -44,6 +44,10 @@ for($i=10;$i -lt $lines.length;$i++)
         }
     }
 
+    #Reverse the array to put the first one on top
+    [array]::Reverse($arrTo)
+
+    #Add the other ones to the bottom
     $arrTo+=$crates[$to]
 
     $crates[$from]=$arrFrom
@@ -64,4 +68,7 @@ for($i=0;$i -lt $crates.length;$i++)
     }
 }
 $answer
+#SHQWSRBDL
+
+#Without reverse
 #CDTQZHBRS
