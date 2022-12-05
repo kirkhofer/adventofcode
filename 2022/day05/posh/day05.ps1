@@ -1,36 +1,45 @@
 $ErrorActionPreference="Stop"
 $lines=(Get-Content "..\input.txt")
 
-
 function Stack-It($option)
 {
-    $crates=@()
-    $crate1=@("R","C","H")
-    $crate2=@("F","S","L","H","J","B")
-    $crate3=@("Q","T","J","H","D","M","R")
-    $crate4=@("J","B","Z","H","R","G","S")
-    $crate5=@("B","C","D","T","Z","F","P","R")
-    $crate6=@("G","C","H","T")
-    $crate7=@("L","W","P","B","Z","V","N","S")
-    $crate8=@("C","G","Q","J","R")
-    $crate9=@("S","F","P","H","R","T","D","L")
-    $crates=$crate1,$crate2,$crate3,$crate4,$crate5,$crate6,$crate7,$crate8,$crate9
 
-    $moves=@()
-    foreach($crate in $crates)
+    $crates=@{}
+    foreach($line in $lines)
     {
-        $moves+=$crate.length
-    }
+        if( $line -notlike "*[[]*" )
+        {
+            break
+        }
+    
+        $c=1
+        for($i=1;$i -lt $line.length;$i+=4)
+        {
+            $v = $line[$i]
+            if( -not $crates.ContainsKey($c) )
+            {
+                $crates.Add($c,@())
+            }
+            if( " " -ne $v )
+            {
+                $crates[$c]+=$v
+            }
+            $c++
+        }    
+    }    
 
-
-    for($i=10;$i -lt $lines.length;$i++)
+    foreach($line in $lines)
     {
-        $line=$lines[$i]
+        if( $line -notlike "move*" )
+        {
+            continue
+        }
+
         Write-Verbose $line
         $cols=$line.split(' ')
         $move=[int]$cols[1]
-        $from=[int]$cols[3]-1
-        $to=[int]$cols[5]-1
+        $from=[int]$cols[3]
+        $to=[int]$cols[5]
 
         $arrFrom=@()
         $arrTo=@()
@@ -59,19 +68,12 @@ function Stack-It($option)
         $crates[$from]=$arrFrom
         $crates[$to]=$arrTo
 
-        $moves[$from]=$moves[$from]-$move
-        $moves[$to]=$moves[$to]+$move
     }
     $answer=""
-    for($i=0;$i -lt $crates.length;$i++)
+    for($i=1;$i -le $crates.Count;$i++)
     {
         $answer+=$crates[$i][0]
         Write-Verbose $($crates[$i] -join "")
-        if( $crates[$i].length -ne $moves[$i] )
-        {
-            Write-Error "Moves do not match"
-            break
-        }
     }
     return $answer
 }
@@ -81,4 +83,3 @@ Write-Host $("Answer 1: {0}" -f $rt)
 #CDTQZHBRS
 $rt = Stack-It 2
 Write-Host $("Answer 2: {0}" -f $rt)
-
