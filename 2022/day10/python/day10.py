@@ -16,9 +16,11 @@ d=[[x for x in l.split()]for l in open("2022/day10/input.txt").read().split("\n"
 mv=[1]
 for a in d:
     print(f"a:{a}")
-    mv.append(0)
-    if a[0]!="noop":
-        mv.append(int(a[1]))
+    mv.append(0) if a[0]=="noop" else mv.extend([0,int(a[1])])
+    # mv.append(0)
+    # if a[0]!="noop":
+    #     mv.append(int(a[1]))
+#13060
 print(f"Answer 1={sum([sum(mv[:a]*a) for a in range(20,220+1,40)])}")
 
 def v1():
