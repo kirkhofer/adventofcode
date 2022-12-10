@@ -1,4 +1,4 @@
-# Advent of Code
+# 🎄 Advent of Code 🎄
 Play area for answering these questions from https://adventofcode.com/
 
 ## Setup
@@ -10,9 +10,6 @@ Play area for answering these questions from https://adventofcode.com/
     - Installed PowerShell Core 7.3.0
     - Installed Dotnet Core 6.0.402
     - Installed SQL Server
-
-## History
-Day 2: Added a SQL script that is running on my local WSL also did 2021/day01
 
 ## Running the code
 - CD to the folder and soluion you want to test
@@ -32,3 +29,5 @@ Day 2: Added a SQL script that is running on my local WSL also did 2021/day01
 - Nicole Serafino
     - [GitHub](https://github.com/nicoleserafino/adventofcode2022)
     - AKA: ionlytestinprod
+- Tim Arif  
+    - [GitHub](https://github.com/timarif/AdventOfCode2022)
